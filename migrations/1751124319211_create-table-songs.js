@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 exports.up = (pgm) => {
   pgm.createTable('songs', {
     id: {
@@ -24,11 +22,11 @@ exports.up = (pgm) => {
     },
     duration: {
       type: 'INTEGER',
-      default: null, // Boleh null
+      default: null, 
     },
-    album_id: { // Sesuaikan dengan snake_case untuk kolom database
+    album_id: { 
       type: 'VARCHAR(50)',
-      default: null, // Boleh null
+      default: null, 
     },
   });
 };

@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */ // Ini adalah komentar untuk ESLint, biarkan saja
-
 exports.up = (pgm) => {
   pgm.createTable('albums', {
     id: {
@@ -11,7 +9,7 @@ exports.up = (pgm) => {
       notNull: true,
     },
     year: {
-      type: 'INTEGER', // Tipe data integer untuk tahun
+      type: 'INTEGER', 
       notNull: true,
     },
   });
