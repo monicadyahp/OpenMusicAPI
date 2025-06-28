@@ -1,17 +1,14 @@
-// src/api/albums/handler.js
-
 const autoBind = require('auto-bind');
 
 class AlbumHandler {
-  // Constructor ini hanya menerima 'service' (AlbumService instance) dan 'validator'
+  
   constructor(service, validator) {
-    this._service = service; // Cukup simpan instance service yang sudah diinisialisasi
+    this._service = service; 
     this._validator = validator;
 
     autoBind(this);
   }
 
-  // Kriteria 2: POST /albums
   async postAlbumHandler(request, h) {
     this._validator.validateAlbumPayload(request.payload);
     const { name, year } = request.payload;
@@ -29,7 +26,6 @@ class AlbumHandler {
     return response;
   }
 
-  // Kriteria 2: GET /albums
   async getAlbumsHandler() {
     const albums = await this._service.getAlbums();
     return {
@@ -40,10 +36,9 @@ class AlbumHandler {
     };
   }
 
-  // Kriteria 2: GET /albums/{id}
   async getAlbumByIdHandler(request, h) {
     const { id } = request.params;
-    // Panggil getAlbumById dari service. Service ini yang akan memanggil SongService.
+    
     const album = await this._service.getAlbumById(id);
     return {
       status: 'success',
@@ -53,7 +48,6 @@ class AlbumHandler {
     };
   }
 
-  // Kriteria 2: PUT /albums/{id}
   async putAlbumByIdHandler(request, h) {
     this._validator.validateAlbumPayload(request.payload);
     const { id } = request.params;
@@ -67,7 +61,6 @@ class AlbumHandler {
     };
   }
 
-  // Kriteria 2: DELETE /albums/{id}
   async deleteAlbumByIdHandler(request, h) {
     const { id } = request.params;
     await this._service.deleteAlbumById(id);

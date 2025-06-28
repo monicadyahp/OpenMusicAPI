@@ -2,28 +2,28 @@ const routes = (handler) => [
   {
     method: 'POST',
     path: '/albums',
-    handler: handler.postAlbumHandler, // Menggunakan handler untuk POST album
+    handler: handler.postAlbumHandler, 
   },
   {
     method: 'GET',
     path: '/albums',
-    handler: handler.getAlbumsHandler, // Menggunakan handler untuk GET semua album
+    handler: handler.getAlbumsHandler, 
   },
   {
     method: 'GET',
     path: '/albums/{id}',
-    handler: handler.getAlbumByIdHandler, // Menggunakan handler untuk GET album berdasarkan ID
+    handler: handler.getAlbumByIdHandler, 
   },
   {
     method: 'PUT',
     path: '/albums/{id}',
-    handler: handler.putAlbumByIdHandler, // Menggunakan handler untuk PUT (edit) album berdasarkan ID
+    handler: handler.putAlbumByIdHandler, 
   },
   {
     method: 'DELETE',
     path: '/albums/{id}',
-    handler: handler.deleteAlbumByIdHandler, // Menggunakan handler untuk DELETE album berdasarkan ID
+    handler: handler.deleteAlbumByIdHandler, 
   },
 ];
 
-module.exports = routes; // Mengekspor definisi routes
+module.exports = routes; 

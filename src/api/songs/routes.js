@@ -2,28 +2,28 @@ const routes = (handler) => [
   {
     method: 'POST',
     path: '/songs',
-    handler: handler.postSongHandler, // Menggunakan handler untuk POST lagu
+    handler: handler.postSongHandler, 
   },
   {
     method: 'GET',
     path: '/songs',
-    handler: handler.getSongsHandler, // Menggunakan handler untuk GET semua lagu
+    handler: handler.getSongsHandler,
   },
   {
     method: 'GET',
     path: '/songs/{id}',
-    handler: handler.getSongByIdHandler, // Menggunakan handler untuk GET lagu berdasarkan ID
+    handler: handler.getSongByIdHandler, 
   },
   {
     method: 'PUT',
     path: '/songs/{id}',
-    handler: handler.putSongByIdHandler, // Menggunakan handler untuk PUT (edit) lagu berdasarkan ID
+    handler: handler.putSongByIdHandler, 
   },
   {
     method: 'DELETE',
     path: '/songs/{id}',
-    handler: handler.deleteSongByIdHandler, // Menggunakan handler untuk DELETE lagu berdasarkan ID
+    handler: handler.deleteSongByIdHandler, 
   },
 ];
 
-module.exports = routes; // Mengekspor definisi routes
+module.exports = routes; 

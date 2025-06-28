@@ -1,14 +1,14 @@
-const { SongPayloadSchema } = require('./schema'); // Mengimpor skema lagu yang baru dibuat
-const InvariantError = require('../../exceptions/InvariantError'); // Mengimpor custom error InvariantError
+const { SongPayloadSchema } = require('./schema'); 
+const InvariantError = require('../../exceptions/InvariantError'); 
 
 const SongValidator = {
   validateSongPayload: (payload) => {
-    const validationResult = SongPayloadSchema.validate(payload); // Melakukan validasi payload menggunakan skema
+    const validationResult = SongPayloadSchema.validate(payload); 
 
     if (validationResult.error) {
-      throw new InvariantError(validationResult.error.message); // Melemparkan InvariantError jika validasi gagal
+      throw new InvariantError(validationResult.error.message); 
     }
   },
 };
 
-module.exports = SongValidator; // Mengekspor validator lagu
+module.exports = SongValidator; 

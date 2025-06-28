@@ -1,31 +1,22 @@
 const autoBind = require('auto-bind');
-// Impor SongQueryValidator
-const SongQueryValidator = require('../../validator/songs/query'); // << TAMBAHKAN INI
+
+const SongQueryValidator = require('../../validator/songs/query'); 
 
 class SongHandler {
-  // Tambahkan songQueryValidator di constructor
-  constructor(service, validator) { // Hapus validator jika belum ada
+  
+  constructor(service, validator) { 
     this._service = service;
     this._validator = validator;
-    this._songQueryValidator = SongQueryValidator; // << TAMBAHKAN INI: Inisialisasi SongQueryValidator
-    // Jika Anda ingin mengoper instance, bisa seperti ini:
-    // constructor(service, validator, songQueryValidator) {
-    //   this._service = service;
-    //   this._validator = validator;
-    //   this._songQueryValidator = songQueryValidator;
-    // }
-    // Lalu di server.js, teruskan instance-nya.
-    // Untuk kesederhanaan, kita bisa panggil langsung kelasnya.
+    this._songQueryValidator = SongQueryValidator; 
 
     autoBind(this);
   }
 
-  // Kriteria 3: POST /songs
   async postSongHandler(request, h) {
-    this._validator.validateSongPayload(request.payload); // Validasi payload dengan Joi
+    this._validator.validateSongPayload(request.payload); 
     const { title, year, performer, genre, duration, albumId } = request.payload;
 
-    const songId = await this._service.addSong({ title, year, performer, genre, duration, albumId }); // Tambahkan lagu melalui service
+    const songId = await this._service.addSong({ title, year, performer, genre, duration, albumId }); 
 
     const response = h.response({
       status: 'success',
@@ -34,13 +25,12 @@ class SongHandler {
         songId,
       },
     });
-    response.code(201); // Status kode 201 Created
+    response.code(201);
     return response;
   }
 
-  // Kriteria 3: GET /songs
   async getSongsHandler() {
-    const songs = await this._service.getSongs(); // Ambil semua lagu dari service
+    const songs = await this._service.getSongs(); 
     return {
       status: 'success',
       data: {
@@ -49,16 +39,13 @@ class SongHandler {
     };
   }
 
-    // Kriteria 3: GET /songs
-  // Kriteria Opsional 2: Menerapkan query parameter
   async getSongsHandler(request, h) {
-    // Validasi query parameters sebelum digunakan
-    this._songQueryValidator.validateSongQuery(request.query); // << TAMBAHKAN INI
+    
+    this._songQueryValidator.validateSongQuery(request.query); 
 
-    const { title, performer } = request.query; // Ambil query parameters
+    const { title, performer } = request.query; 
 
-    // Teruskan query parameters ke service
-    const songs = await this._service.getSongs({ title, performer }); // << UBAH INI
+    const songs = await this._service.getSongs({ title, performer });
 
     return {
       status: 'success',
@@ -68,10 +55,9 @@ class SongHandler {
     };
   }
 
-  // Kriteria 3: GET /songs/{id}
   async getSongByIdHandler(request, h) {
-    const { id } = request.params; // Ambil ID dari parameter URL
-    const song = await this._service.getSongById(id); // Ambil detail lagu dari service
+    const { id } = request.params; 
+    const song = await this._service.getSongById(id); 
     return {
       status: 'success',
       data: {
@@ -80,13 +66,12 @@ class SongHandler {
     };
   }
 
-  // Kriteria 3: PUT /songs/{id}
   async putSongByIdHandler(request, h) {
-    this._validator.validateSongPayload(request.payload); // Validasi payload dengan Joi
-    const { id } = request.params; // Ambil ID dari parameter URL
+    this._validator.validateSongPayload(request.payload); 
+    const { id } = request.params; 
     const { title, year, performer, genre, duration, albumId } = request.payload;
 
-    await this._service.editSongById(id, { title, year, performer, genre, duration, albumId }); // Edit lagu melalui service
+    await this._service.editSongById(id, { title, year, performer, genre, duration, albumId });
 
     return {
       status: 'success',
@@ -94,10 +79,9 @@ class SongHandler {
     };
   }
 
-  // Kriteria 3: DELETE /songs/{id}
   async deleteSongByIdHandler(request, h) {
-    const { id } = request.params; // Ambil ID dari parameter URL
-    await this._service.deleteSongById(id); // Hapus lagu melalui service
+    const { id } = request.params; 
+    await this._service.deleteSongById(id);
 
     return {
       status: 'success',

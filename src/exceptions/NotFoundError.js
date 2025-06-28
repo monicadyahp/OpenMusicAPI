@@ -1,10 +1,10 @@
-const ClientError = require('./ClientError'); // Mengimpor ClientError sebagai dasar
+const ClientError = require('./ClientError'); 
 
-class NotFoundError extends ClientError { // Mewarisi dari ClientError
+class NotFoundError extends ClientError { 
   constructor(message) {
-    super(message, 404); // Memanggil constructor ClientError dengan status code 404
-    this.name = 'NotFoundError'; // Mengatur nama error
+    super(message, 404); 
+    this.name = 'NotFoundError'; 
   }
 }
 
-module.exports = NotFoundError; // Mengekspor NotFoundError
+module.exports = NotFoundError; 

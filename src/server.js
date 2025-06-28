@@ -1,5 +1,3 @@
-// src/server.js
-
 require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
@@ -11,14 +9,12 @@ const SongService = require('./services/postgres/songs/SongService');
 
 const AlbumValidator = require('./validator/albums');
 const SongValidator = require('./validator/songs');
-const SongQueryValidator = require('./validator/songs/query'); // Import SongQueryValidator
+const SongQueryValidator = require('./validator/songs/query'); 
 
 const ClientError = require('./exceptions/ClientError');
 
 const init = async () => {
-  // Inisialisasi SongService terlebih dahulu karena AlbumService bergantung padanya
   const songService = new SongService();
-  // Inisialisasi AlbumService dengan instance SongService
   const albumService = new AlbumService(songService);
 
   const server = Hapi.server({
@@ -31,7 +27,6 @@ const init = async () => {
     },
   });
 
-  // Daftarkan plugin albums
   await server.register({
     plugin: albums,
     options: {
@@ -40,17 +35,15 @@ const init = async () => {
     },
   });
 
-  // Daftarkan plugin songs
   await server.register({
     plugin: songs,
     options: {
       service: songService,
       validator: SongValidator,
-      songQueryValidator: SongQueryValidator, // Teruskan SongQueryValidator di sini
+      songQueryValidator: SongQueryValidator, 
     },
   });
 
-  // Bagian onPreResponse tetap sama
   server.ext('onPreResponse', (request, h) => {
     const { response } = request;
     if (response instanceof ClientError) {

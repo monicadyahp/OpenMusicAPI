@@ -1,14 +1,14 @@
-const { AlbumPayloadSchema } = require('./schema'); // Mengimpor skema yang baru dibuat
-const InvariantError = require('../../exceptions/InvariantError'); // Mengimpor custom error InvariantError
+const { AlbumPayloadSchema } = require('./schema'); 
+const InvariantError = require('../../exceptions/InvariantError'); 
 
 const AlbumValidator = {
   validateAlbumPayload: (payload) => {
-    const validationResult = AlbumPayloadSchema.validate(payload); // Melakukan validasi payload menggunakan skema
+    const validationResult = AlbumPayloadSchema.validate(payload); 
 
     if (validationResult.error) {
-      throw new InvariantError(validationResult.error.message); // Melemparkan InvariantError jika validasi gagal
+      throw new InvariantError(validationResult.error.message); 
     }
   },
 };
 
-module.exports = AlbumValidator; // Mengekspor validator album
+module.exports = AlbumValidator; 

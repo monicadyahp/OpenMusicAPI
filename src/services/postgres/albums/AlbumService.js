@@ -2,16 +2,13 @@ const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
 const InvariantError = require('../../../exceptions/InvariantError');
 const NotFoundError = require('../../../exceptions/NotFoundError');
-// TIDAK PERLU mengimpor SongService di sini secara langsung.
-// SongService akan diinjeksikan melalui constructor.
 
 class AlbumService {
-  constructor(songService) { // << TAMBAHKAN songService DI SINI
+  constructor(songService) { 
     this._pool = new Pool();
-    this._songService = songService; // << SIMPAN INSTANCE SONGSERVICE
+    this._songService = songService; 
   }
 
-  // Kriteria 2: POST /albums
   async addAlbum({ name, year }) {
     const id = `album-${nanoid(16)}`;
     const query = {
@@ -27,13 +24,11 @@ class AlbumService {
     return result.rows[0].id;
   }
 
-  // Kriteria 2: GET /albums
   async getAlbums() {
     const result = await this._pool.query('SELECT id, name, year FROM albums');
     return result.rows;
   }
 
-  // Kriteria 2: GET /albums/{id}
   async getAlbumById(id) {
     const query = {
       text: 'SELECT id, name, year FROM albums WHERE id = $1',
@@ -45,20 +40,16 @@ class AlbumService {
       throw new NotFoundError('Album tidak ditemukan');
     }
 
-    const album = result.rows[0]; // Ambil data album
+    const album = result.rows[0]; 
 
-    // Kriteria Opsional 1: Ambil daftar lagu yang terkait dengan album ini
-    // Kita akan membuat method di SongService untuk ini
-    // Kemudian panggil dari sini:
-    const songs = await this._songService.getSongsByAlbumId(album.id); // << PANGGIL METHOD DARI SONGSERVICE
+    const songs = await this._songService.getSongsByAlbumId(album.id); 
 
     return {
       ...album,
-      songs, // << TAMBAHKAN DAFTAR LAGU KE OBJEK ALBUM
+      songs, 
     };
   }
 
-  // Kriteria 2: PUT /albums/{id}
   async editAlbumById(id, { name, year }) {
     const query = {
       text: 'UPDATE albums SET name = $1, year = $2 WHERE id = $3 RETURNING id',
@@ -72,7 +63,6 @@ class AlbumService {
     }
   }
 
-  // Kriteria 2: DELETE /albums/{id}
   async deleteAlbumById(id) {
     const query = {
       text: 'DELETE FROM albums WHERE id = $1 RETURNING id',

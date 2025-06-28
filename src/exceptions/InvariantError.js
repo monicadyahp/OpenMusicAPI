@@ -1,10 +1,10 @@
-const ClientError = require('./ClientError'); // Mengimpor ClientError sebagai dasar 
+const ClientError = require('./ClientError'); 
 
-class InvariantError extends ClientError { // Mewarisi dari ClientError 
+class InvariantError extends ClientError {  
   constructor(message) {
-    super(message); // Memanggil constructor ClientError 
-    this.name = 'InvariantError'; // Mengatur nama error 
+    super(message); 
+    this.name = 'InvariantError'; 
   }
 }
 
-module.exports = InvariantError; // Mengekspor InvariantError
+module.exports = InvariantError; 
